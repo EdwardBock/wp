@@ -1,0 +1,44 @@
+{
+  "name": "@public-function/wp",
+  "version": "0.1.0",
+  "description": "Thin Drizzl layer for WordPress.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "pretest": "node ./__seed__/seed.js",
+    "test": "jest",
+    "build": "tsup ./src",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Edward Bock <hi@edwardbock.de> (https://www.edwardbock.de/)",
+  "license": "MIT",
+  "dependencies": {
+    "drizzle-orm": "0.30.6",
+    "mysql2": "3.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "29.5.12",
+    "@types/node": "20.11.30",
+    "jest": "29.7.0",
+    "ts-jest": "29.1.2",
+    "ts-node": "10.9.2",
+    "tsup": "8.0.2",
+    "typescript": "5.4.3"
+  },
+  "volta": {
+    "node": "20.12.1"
+  }
+}

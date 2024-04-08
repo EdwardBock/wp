@@ -1,0 +1,6 @@
+/src
+/__seed__
+/__tests__
+/test-utils.ts
+/jest.config.ts
+/docker-compose.yml

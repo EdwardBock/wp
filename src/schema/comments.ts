@@ -3,7 +3,7 @@ import {datetime, int, longtext, mysqlTable, text, tinytext, varchar} from "driz
 export const comments = (prefix: string) => mysqlTable(
     `${prefix}comments`,
     {
-        id: int("comment_ID", {unsigned: true}).notNull(),
+        id: int("comment_ID", {unsigned: true}).primaryKey().notNull().autoincrement(),
         postId: int("comment_post_ID", {unsigned: true}).notNull(),
         author: tinytext("comment_author").notNull(),
         authorEmail: varchar("comment_author_email", {length: 100}).notNull(),
@@ -24,7 +24,7 @@ export const comments = (prefix: string) => mysqlTable(
 export const commentMeta = (prefix: string) => mysqlTable(
     `${prefix}commentmeta`,
     {
-        id: int("meta_id", {unsigned: true}).notNull(),
+        id: int("meta_id", {unsigned: true}).primaryKey().notNull().autoincrement(),
         commentId: int('comment_id', {unsigned: true}).notNull()
             .references(() => comments(prefix).id),
         key: varchar("meta_key", {length: 255}),

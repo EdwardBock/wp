@@ -3,7 +3,7 @@ import {datetime, int, longtext, mysqlTable, varchar} from "drizzle-orm/mysql-co
 export const users = (prefix: string) => mysqlTable(
     `${prefix}users`,
     {
-        id: int("ID", {unsigned: true}).notNull(),
+        id: int("ID", {unsigned: true}).primaryKey().notNull().autoincrement(),
         login: varchar("user_login", {length: 60}).notNull(),
         pass: varchar("user_pass", {length: 255}).notNull(),
         nicename: varchar("user_nicename", {length: 50}).notNull(),
@@ -19,7 +19,7 @@ export const users = (prefix: string) => mysqlTable(
 export const userMeta = (prefix: string) => mysqlTable(
     `${prefix}usermeta`,
     {
-        id: int("umeta_id", {unsigned: true}).notNull(),
+        id: int("umeta_id", {unsigned: true}).primaryKey().notNull().autoincrement(),
         userId: int('user_id', {unsigned: true}).notNull().references(() => users(prefix).id),
         key: varchar("meta_key", {length: 255}),
         value: longtext("meta_value"),

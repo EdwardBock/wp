@@ -3,7 +3,7 @@ import {datetime, int, longtext, mysqlTable, text, varchar} from "drizzle-orm/my
 export const posts = (prefix: string) => mysqlTable(
     `${prefix}posts`,
     {
-        id: int("ID", {unsigned: true}).primaryKey(),
+        id: int("ID", {unsigned: true}).primaryKey().notNull().autoincrement(),
         author: int('post_author', {unsigned: true}).notNull(),
         date: datetime("post_date").notNull(),
         dateGmt: datetime("post_date_gmt").notNull(),
@@ -27,7 +27,7 @@ export const posts = (prefix: string) => mysqlTable(
 export const postMeta = (prefix: string) => mysqlTable(
     `${prefix}postmeta`,
     {
-        id: int("meta_id", {unsigned: true}).notNull(),
+        id: int("meta_id", {unsigned: true}).primaryKey().notNull().autoincrement(),
         postId: int('post_id', {unsigned: true}).notNull()
             .references(() => posts(prefix).id),
         key: varchar("meta_key", {length: 255}),

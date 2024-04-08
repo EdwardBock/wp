@@ -2,7 +2,7 @@ import {WordPress} from "../instance.ts";
 import {UsersArgs} from "../types";
 import {and, inArray, SQL} from "drizzle-orm";
 import {pagination} from "../utils";
-import {hydrateUsersWithMeta} from "../hydration";
+import {hydrateUsersWithMeta, hydrateUserWithMeta} from "../hydration";
 import {isNumberArray, isStringArray} from "../typeguards";
 import {isUserRolesQuery} from "../typeguards";
 
@@ -36,4 +36,12 @@ export async function queryUsers(
         wp,
         result
     );
+}
+
+export async function getUserMeta(wp: WordPress, userId: number, metaKey: string){
+    return getUserMetas(wp, userId).then(map => map.get(metaKey) ?? null);
+}
+
+export async function getUserMetas(wp: WordPress, userId: number){
+    return hydrateUserWithMeta(wp, {id:userId}).then(user => user.metas);
 }

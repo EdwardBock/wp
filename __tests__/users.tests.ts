@@ -31,6 +31,16 @@ describe('Users table', () => {
 
     });
 
+    it("Should insert a user meta", async ()=>{
+        wp.db.insert(wp.userMeta).values(
+            {
+                userId: 1,
+                key: "some_key",
+                value: "some-value",
+            }
+        )
+    });
+
 
 
 });

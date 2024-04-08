@@ -2,7 +2,7 @@ import {WordPress} from "../instance.ts";
 import {CommentsQueryArgs} from "../types";
 import {and, eq, SQL} from "drizzle-orm";
 import {pagination} from "../utils";
-import {hydrateCommentsWithMeta} from "../hydration";
+import {hydrateCommentsWithMeta, hydrateCommentWithMeta} from "../hydration";
 import {isCommentStatus} from "../typeguards";
 
 export async function queryComments(
@@ -43,4 +43,12 @@ export async function queryComments(
         wp,
         result
     );
+}
+
+export async function getCommentMetas(wp: WordPress, postId: number){
+    return hydrateCommentWithMeta(wp, {id: postId}).then(post => post.metas);
+}
+
+export async function getCommentMeta(wp: WordPress, postId: number, metaKey: string){
+    return getCommentMetas(wp, postId).then(map => map.get(metaKey) ?? null);
 }

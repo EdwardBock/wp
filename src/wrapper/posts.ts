@@ -1,5 +1,5 @@
 import {asc, desc} from "drizzle-orm";
-import {PostsQueryArgs, wherePost, WordPress} from "../index.ts";
+import {hydratePost, PostsQueryArgs, wherePost, WordPress} from "../index.ts";
 import {hydratePosts} from "../hydration";
 import {pagination} from "../utils";
 
@@ -48,4 +48,12 @@ export async function queryPosts(
     // hydrate with post metas and terms
     // ------------------------------------
     return hydratePosts(wp, result);
+}
+
+export async function getPostMetas(wp: WordPress, postId: number){
+    return hydratePost(wp, {id: postId}).then(post => post.metas);
+}
+
+export async function getPostMeta(wp: WordPress, postId: number, metaKey: string){
+    return getPostMetas(wp, postId).then(map => map.get(metaKey) ?? null);
 }

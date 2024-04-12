@@ -1,6 +1,6 @@
-import {WordPress} from "../instance.ts";
-import {CommentsQueryArgs} from "../types";
-import {and, eq, SQL} from "drizzle-orm";
+import type {WordPress} from "../instance.ts";
+import type {CommentsQueryArgs} from "../types";
+import {and, eq, type SQL} from "drizzle-orm";
 import {pagination} from "../utils";
 import {hydrateCommentsWithMeta, hydrateCommentWithMeta} from "../hydration";
 import {isCommentStatus} from "../typeguards";

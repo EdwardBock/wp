@@ -1,25 +1,81 @@
-import {WordPress} from "../instance.ts";
-import {and, eq, inArray, like} from "drizzle-orm";
+import type {WordPress} from "../instance.ts";
+import type {UserIdsQuery, UserRolesQuery} from "../types";
+import {and, eq, inArray, like, notInArray, or} from "drizzle-orm";
+import {isNumberArray, isStringArray} from "../typeguards";
 
-export const whereUserHasRole = (
+export const whereUserIds = (
     wp: WordPress,
-    role: string
-) => {
+    query: UserIdsQuery | number[]
+)=> {
+    if(isNumberArray(query)){
+        query = {
+            type: "include",
+            values: query,
+        } satisfies UserIdsQuery
+    }
+
     const {
-        db,
+        type,
+        values,
+    } = query
+
+    if(values.length == 0){
+        return undefined;
+    }
+
+    const {
         users,
-        userMeta,
     } = wp;
 
+    const inOrNotIn = type == "include" ? inArray : notInArray;
+    return inOrNotIn(users.id, values);
 
-    const userIds = db.select({id: userMeta.userId})
+}
+
+export const whereUserInRoles = (
+    wp: WordPress,
+    query: UserRolesQuery|string[]
+) => {
+
+    if(isStringArray(query)){
+        query = {
+            type: "include",
+            values: query,
+        }
+    }
+
+    const {
+        type,
+        values,
+    } = query;
+
+    if(query.values.length == 0) return undefined;
+
+    const {
+        users,
+    } = wp;
+
+    const userIds = selectUserIdsFromCapabilitiesMeta(wp, values);
+
+    const inOrNotIn = type == "include" ? inArray: notInArray;
+    return inOrNotIn(users.id, userIds);
+
+}
+
+const selectUserIdsFromCapabilitiesMeta = (wp: WordPress, roles: string[]) => {
+    const {
+        db,
+        userMeta,
+    } = wp;
+    return db
+        .select({id: userMeta.userId})
         .from(userMeta)
         .where(
-            and(
-                eq(userMeta.key, `${wp.prefix}capabilities`),
-                like(userMeta.value, `%"${role}"%`)
+            or(
+                ...roles.map(role => and(
+                    eq(userMeta.key, `${wp.prefix}capabilities`),
+                    like(userMeta.value, `%"${role}"%`)
+                ))
             )
         );
-
-    return inArray(users.id, userIds);
 }

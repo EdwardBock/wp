@@ -1,14 +1,12 @@
-import {TermIdQuery, TermIdQueryConfig, TermSlugQuery, TermSlugQueryConfig} from "../types";
-import {isRelation} from "./base.ts";
+import type {TermIdQuery, TermIdQueryConfig, TermSlugQuery, TermSlugQueryConfig} from "../types";
+import {isNumberArray, isRelation, isStringArray} from "./base.ts";
 
 export const isTermSlugQuery = (data: any): data is TermSlugQuery => {
-    if (!Array.isArray(data)) return false;
-    return (data.filter((i: any) => typeof i == "string").length == data.length);
+    return isStringArray(data);
 }
 
 export const isTermIdQuery = (data: any): data is TermIdQuery => {
-    if (!Array.isArray(data)) return false;
-    return (data.filter((i: any) => typeof i == "number").length == data.length);
+    return isNumberArray(data);
 }
 
 export const isTermSlugQueryConfig = (data: any): data is TermSlugQueryConfig => {

@@ -1,5 +1,5 @@
+import type {AuthorArgs, PostStatus, PostStatusArgs, PostType, TaxonomyQueryArgs, WordPress} from "../index.ts";
 import {and, inArray} from "drizzle-orm";
-import {AuthorArgs, PostStatus, PostStatusArgs, PostType, TaxonomyQueryArgs, WordPress} from "../index.ts";
 import {wherePostTerms} from "./terms.ts";
 import {wherePostWithAuthor} from "./authors.ts";
 

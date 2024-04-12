@@ -1,5 +1,5 @@
+import {hydratePost, type PostsQueryArgs, wherePost, type WordPress} from "../index.ts";
 import {asc, desc} from "drizzle-orm";
-import {hydratePost, PostsQueryArgs, wherePost, WordPress} from "../index.ts";
 import {hydratePosts} from "../hydration";
 import {pagination} from "../utils";
 

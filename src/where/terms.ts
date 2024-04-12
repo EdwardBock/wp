@@ -1,6 +1,6 @@
-import {WordPress} from "../instance.ts";
-import {and, eq, inArray, SQL} from "drizzle-orm";
+import type {WordPress} from "../instance.ts";
 import type {TermIdQueryConfig, TermQuery, TermSlugQueryConfig} from "../types";
+import {and, eq, inArray, type SQL} from "drizzle-orm";
 import {isTermIdQuery, isTermSlugQuery} from "../typeguards";
 
 export const wherePostTerms = (

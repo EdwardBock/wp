@@ -1,4 +1,4 @@
-import {Relation} from "../types";
+import type {Relation} from "../types";
 
 export const isStringArray = (data: any): data is string[] => {
     return Array.isArray(data) && data.find(d => typeof d != "string") == undefined;

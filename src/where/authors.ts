@@ -1,6 +1,6 @@
-import {eq, inArray, notInArray} from "drizzle-orm";
-import {WordPress} from "../instance.ts";
+import type {WordPress} from "../instance.ts";
 import type {AuthorArgs} from "../types";
+import {eq, inArray, notInArray} from "drizzle-orm";
 import {isAuthorEmail, isAuthorInIds, isAuthorNotInIds} from "../typeguards";
 
 export const wherePostWithAuthor = (

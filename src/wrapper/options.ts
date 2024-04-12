@@ -1,5 +1,5 @@
+import type {WordPress} from "../instance.ts";
 import {eq} from "drizzle-orm";
-import {WordPress} from "../instance.ts";
 
 export async function getOption(wp: WordPress, name: string){
     const results = await wp.db.select().from(wp.options)

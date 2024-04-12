@@ -1,15 +1,12 @@
-import {AuthorEmail, AuthorInIds, AuthorName, AuthorNotInIds} from "../types";
+import type {AuthorEmail, AuthorInIds, AuthorName, AuthorNotInIds} from "../types";
+import {isNumberArray} from "./base.ts";
 
 export const isAuthorInIds = (data:any): data is AuthorInIds => {
-    const ids = data?.inIds;
-    if(!Array.isArray(ids)) return false;
-    return ids.filter((i:any) => typeof i == "number").length == ids.length;
+    return isNumberArray(data?.inIds);
 }
 
 export const isAuthorNotInIds = (data:any): data is AuthorNotInIds => {
-    const ids = data?.notInIds;
-    if(!Array.isArray(ids)) return false;
-    return ids.filter((i:any) => typeof i == "number").length == ids.length;
+    return isNumberArray(data?.notInIds);
 }
 
 export const isAuthorName = (data:any): data is AuthorName => {

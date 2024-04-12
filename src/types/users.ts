@@ -1,7 +1,7 @@
 import {Pagination} from "./base.ts";
 
 export type UserRolesQuery = {
-    is: "in" | "not_in"
+    type: "include" | "exclude"
     values: string[]
 }
 

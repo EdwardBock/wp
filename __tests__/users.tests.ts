@@ -31,6 +31,21 @@ describe('Users table', () => {
 
     });
 
+    it('should find users but exclude some ids', async ()=> {
+        const result = await queryUsers(wp,{
+            ids: {
+                type: "exclude",
+                values: [2],
+            },
+        });
+
+        expect(result.length).toBeGreaterThan(0);
+        const resultIds = result.map(u => u.id);
+        resultIds.forEach(id => {
+            expect(id).not.toBe(2);
+        });
+    });
+
     it("Should insert a user meta", async ()=>{
         wp.db.insert(wp.userMeta).values(
             {
@@ -50,7 +65,23 @@ describe('Users table', () => {
         expect(users.length).toBeGreaterThan(0);
         users.forEach(user => {
             expect(user.metas.get("wp_capabilities")?.includes("administrator")).toBeTruthy();
-        })
+        });
+
+    });
+
+    it("Should get all but admin users", async ()=>{
+
+        const users = await queryUsers(wp, {
+            roles: {
+                type: "exclude",
+                values: ["administrator"],
+            },
+        });
+
+        expect(users.length).toBeGreaterThan(0);
+        users.forEach(user => {
+            expect(user.metas.get("wp_capabilities")?.includes("administrator")).toBeFalsy();
+        });
 
     });
 

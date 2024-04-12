@@ -1,4 +1,4 @@
-import {UserHasPublishedPostsQuery, UserIdsQuery, UserRolesQuery, UserSearchQuery} from "../types";
+import type {UserHasPublishedPostsQuery, UserIdsQuery, UserRolesQuery, UserSearchQuery} from "../types";
 import {isNumberArray, isStringArray} from "./base.ts";
 
 export const isUserRolesQuery = (data: any): data is UserRolesQuery => {

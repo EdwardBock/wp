@@ -1,4 +1,4 @@
-import {WordPress} from "../instance.ts";
+import type {WordPress} from "../instance.ts";
 import {eq, ilike, or} from "drizzle-orm";
 
 export function whereCommentWithPostId(

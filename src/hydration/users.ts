@@ -17,7 +17,12 @@ export async function hydrateUsersWithMeta<T extends UserShape>(
     users: T[],
 ) {
 
+    if(users.length == 0){
+        return users.map(i => ({...i, metas: toMetaMap([])}));
+    }
+
     const ids = users.map(p => p.id);
+
     const metas = await wp.db.select()
         .from(wp.userMeta)
         .where(inArray(wp.userMeta.userId, ids))

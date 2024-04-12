@@ -41,6 +41,19 @@ describe('Users table', () => {
         )
     });
 
+    it("Should get admin users", async ()=>{
+
+        const users = await queryUsers(wp, {
+            roles: ["administrator"],
+        });
+
+        expect(users.length).toBeGreaterThan(0);
+        users.forEach(user => {
+            expect(user.metas.get("wp_capabilities")?.includes("administrator")).toBeTruthy();
+        })
+
+    });
+
 
 
 });

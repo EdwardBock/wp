@@ -54,6 +54,10 @@ export async function hydratePostsWithMeta<T extends PostShape>(
     posts: T[],
 ) {
 
+    if(posts.length == 0){
+        return posts.map(i => ({...i, metas: toMetaMap([])}));
+    }
+
     const ids = posts.map(p => p.id);
     const metas = await wp.db.select()
         .from(wp.postMeta)
@@ -84,6 +88,11 @@ export async function hydratePostsWithTerms<T extends PostShape>(
     posts: T[],
 ){
     const ids = posts.map(p => p.id);
+
+    if(posts.length == 0){
+        const termsMap: TermsMap = new Map();
+        return posts.map(i => ({...i, terms: termsMap}));
+    }
 
     const terms = await wp.db.select({
         ...getTableColumns(wp.terms),

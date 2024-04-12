@@ -17,6 +17,10 @@ export async function hydrateCommentsWithMeta<T extends CommentShape>(
     comments: T[],
 ) {
 
+    if(comments.length == 0){
+        return comments.map(i => ({...i, metas: toMetaMap([])}));
+    }
+
     const ids = comments.map(p => p.id);
     const metas = await wp.db.select()
         .from(wp.commentMeta)

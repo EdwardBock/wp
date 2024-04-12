@@ -1,10 +1,11 @@
 import {WordPress} from "../instance.ts";
 import {UsersArgs} from "../types";
-import {and, inArray, SQL} from "drizzle-orm";
+import {and, inArray, or, SQL} from "drizzle-orm";
 import {pagination} from "../utils";
 import {hydrateUsersWithMeta, hydrateUserWithMeta} from "../hydration";
 import {isNumberArray, isStringArray} from "../typeguards";
 import {isUserRolesQuery} from "../typeguards";
+import {whereUserHasRole} from "../where/users.ts";
 
 export async function queryUsers(
     wp: WordPress,
@@ -14,7 +15,11 @@ export async function queryUsers(
     const where: SQL[] = [];
 
     if(isStringArray(args.roles)){
-
+        const roles = args.roles.map(role => whereUserHasRole(wp,role))
+        const relation = or(...roles)
+        if(relation) {
+            where.push(relation);
+        }
     } else if (isUserRolesQuery(args.roles)){
 
     }
@@ -25,12 +30,14 @@ export async function queryUsers(
 
     const paged = pagination(args);
 
-    const result = await wp.db
+    const query = wp.db
         .select()
         .from(wp.users)
         .where(and(...where))
         .limit(paged.limit)
         .offset(paged.offset);
+
+    const result = await query;
 
     return hydrateUsersWithMeta(
         wp,

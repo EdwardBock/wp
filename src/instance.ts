@@ -2,7 +2,7 @@ import {drizzle} from "drizzle-orm/mysql2";
 import {WordPressOptions} from "./types";
 import * as schema from "./schema";
 
-export default function wp(
+export default function connect(
     options: WordPressOptions,
 ) {
 
@@ -51,4 +51,4 @@ export default function wp(
     } as const
 }
 
-export type WordPress = ReturnType<typeof wp>
+export type WordPress = ReturnType<typeof connect>

@@ -1,5 +1,5 @@
 import mysql from "mysql2/promise";
-import wp from "./src";
+import connect from "./src";
 
 export const getWP = () => {
     const pool = mysql.createPool({
@@ -8,8 +8,9 @@ export const getWP = () => {
         database: "exampledb",
         password: "examplepass",
     });
-    return wp(pool, {
+    return connect({
         db: {
+            client: pool,
             prefix: "wp_"
         }
     });

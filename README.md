@@ -50,7 +50,7 @@ const siteUrl = (
 or even easier with the wrapper function.
 
 ```typescript
-import {getoption} from '@public-function/wp';
+import {getOption} from '@public-function/wp';
 const siteUrl = await getOption(wp, "siteurl");
 ```
 

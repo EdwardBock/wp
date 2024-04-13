@@ -160,3 +160,17 @@ const users = await queryUsers(wp, {
 ### WP_Taxonomy_Query
 
 Coming soon...
+
+## Tests
+
+Start the WordPress docker container:
+
+```bash
+docker compose up -d
+```
+
+Run tests:
+
+```bash
+npm run test
+```

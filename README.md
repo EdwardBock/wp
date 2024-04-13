@@ -2,6 +2,8 @@
 
 A thin drizzle based orm layer for the WordPress database.
 
+> 0.4.0 come with a breaking change in the wp constructor.
+
 ## Why?
 
 Because sometimes performance matters!

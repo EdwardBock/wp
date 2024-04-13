@@ -7,7 +7,7 @@ import {isCommentStatus} from "../typeguards";
 
 export async function queryComments(
     wp: WordPress,
-    args: CommentsQueryArgs
+    args: CommentsQueryArgs = {}
 ) {
 
     const where: SQL[] = [];

@@ -7,7 +7,7 @@ import {whereUserIds, whereUserInRoles} from "../where/users.ts";
 
 export async function queryUsers(
     wp: WordPress,
-    args: UsersArgs
+    args: UsersArgs = {},
 ) {
 
     const where: SQL[] = [];

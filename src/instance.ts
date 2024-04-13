@@ -1,16 +1,16 @@
-import {drizzle, MySql2Client} from "drizzle-orm/mysql2";
+import {drizzle} from "drizzle-orm/mysql2";
 import {WordPressOptions} from "./types";
 import * as schema from "./schema";
 
 export default function wp(
-    client: MySql2Client,
-    options: WordPressOptions = {},
+    options: WordPressOptions,
 ) {
 
     const {
         db: {
-            prefix = ""
-        } = {}
+            client,
+            prefix,
+        }
     } = options;
 
     const posts = schema.posts(prefix);

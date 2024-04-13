@@ -18,8 +18,8 @@ $ npm i @public-function/wp drizzle-orm mysql2
 ### Initialize 
 
 ```javascript
-import mysql from 'mysql2';
-import wpdb from '@public-function/wp';
+import mysql from 'mysql2/promise';
+import wp from '@public-function/wp';
 
 const pool = mysql.createPool({
     host: process.env.HOST,
@@ -28,7 +28,12 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
 });
 
-const db = wpdb(pool, { db:{ prefix: "wp_" }});
+const db = wp({ 
+    db:{ 
+        client: pool, 
+        prefix: "wp_" 
+    }
+});
 ```
 
 Get typesafe results via drizzle schema objects.
@@ -65,9 +70,19 @@ All default wordpress tables are defined:
 
 Use query functions for WP_Query like results.
 
+## Hydration
+
+Use hydration functions to easily collect meta or term data.
+
+```javascript
+import {hydrateUsersWithMeta} from "@pubic-function/wp";
+const users = await wp.db.select().from(wp.users);
+const hydratedUsers = await hydrateUsersWithMeta(wp, users);
+```
+
 ## Wrapper functions
 
-There are some query functions for typical use cases like loading posts in a WP_Query like manner.
+There are some query functions for typical use cases like loading posts in a WP_Query like manner. All results are automatically hydrated with meta and term data.
 
 
 ### WP_Query
@@ -75,7 +90,9 @@ There are some query functions for typical use cases like loading posts in a WP_
 ```typescript
 import {queryPosts} from "@pubic-function/wp";
 
-const posts = await queryPosts(db, {});
+const posts = await queryPosts(wp, {
+    
+});
 ```
 
 ## WP_Comment_Query
@@ -83,7 +100,9 @@ const posts = await queryPosts(db, {});
 ```typescript
 import {queryComments} from "@pubic-function/wp";
 
-const comments = await queryComments(db, {});
+const comments = await queryComments(wp, {
+    
+});
 ```
 
 ## WP_User_Query
@@ -91,15 +110,8 @@ const comments = await queryComments(db, {});
 ```typescript
 import {queryUsers} from "@pubic-function/wp";
 
-const users = await queryUsers(db, {});
+const users = await queryUsers(wp, {
+    
+});
 ```
 
-## Hydration
-
-Use hydration functions to easily collect relational data, like metas or terms to a post.
-
-```javascript
-import {hydrateUsersWithMeta} from "@pubic-function/wp";
-const users = await queryUsers(db, {});
-const hydratedUsers = await hydrateUsersWithMeta(wp, users);
-```

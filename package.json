@@ -1,6 +1,6 @@
 {
   "name": "@public-function/wp",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Thin Drizzl layer for WordPress.",
   "type": "module",
   "main": "./dist/index.cjs",

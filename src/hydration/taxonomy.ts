@@ -24,7 +24,7 @@ export async function hydrateTermsWithMeta<T extends TermShape>(
     const metas = await wp.db.select()
         .from(wp.termMeta)
         .where(inArray(wp.termMeta.termId, termIds))
-        .orderBy(wp.postMeta.postId, wp.postMeta.key);
+        .orderBy(wp.termMeta.termId, wp.termMeta.key);
 
 
     return terms.map(term => {

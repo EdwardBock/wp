@@ -1,24 +1,13 @@
 import {MySqlColumn} from "drizzle-orm/mysql-core";
-import {OrderDirection, Relation} from "./base.ts";
+import {OrderDirection} from "./base.ts";
+import {TermQuery} from "./taxonomy.ts";
 
 export type PostStatus =  "publish" | "pending" | "draft" | "auto-draft" | "future" | "private" | "inherit" | "trash"
 export type PostStatusArgs = "any" | PostStatus | PostStatus[]
 
 export type PostType = "any" | string[]
 
-export type TermQueryConfig<T> = {
-    value: T
-    relation?: Relation
-}
-
-export type TermSlugQuery = string[]
-export type TermIdQuery =  number[]
-export type TermSlugQueryConfig = TermQueryConfig<TermSlugQuery>
-export type TermIdQueryConfig = TermQueryConfig<TermIdQuery>
-
-export type TermQuery = TermSlugQuery | TermIdQuery | TermSlugQueryConfig | TermIdQueryConfig
-
-export type TaxonomyQueryArgs = {
+export type TaxonomyQuery = {
     [taxonomy: string]: TermQuery
 }
 
@@ -32,7 +21,7 @@ export type PostsQueryArgs = {
     postType?: PostType
     perPage?: number
     page?: number
-    terms?: TaxonomyQueryArgs
+    terms?: TaxonomyQuery
     postStatus?: PostStatusArgs
     author?: AuthorArgs
     orderBy?: MySqlColumn

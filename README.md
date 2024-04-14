@@ -157,9 +157,33 @@ const users = await queryUsers(wp, {
     
 });
 ```
+
 ### WP_Taxonomy_Query
 
-Coming soon...
+```typescript
+import {queryTerms} from "@pubic-function/wp";
+
+const terms = await queryTerms(wp, {
+    
+});
+```
+
+
+### Menu
+
+```typescript
+import {getMenu} from "@pubic-function/wp";
+
+const menu = await getMenu(wp, "menu-1");
+```
+
+### Option
+
+```typescript
+import {getOption} from '@public-function/wp';
+
+const siteUrl = await getOption(wp, "siteurl");
+```
 
 ## Tests
 

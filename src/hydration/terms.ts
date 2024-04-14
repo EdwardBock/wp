@@ -17,7 +17,10 @@ export async function hydrateTermsWithMeta<T extends TermShape>(
     terms: T[],
 ) {
 
+    if(terms.length == 0) return terms;
+
     const termIds = terms.map(p => p.id);
+
     const metas = await wp.db.select()
         .from(wp.termMeta)
         .where(inArray(wp.termMeta.termId, termIds))

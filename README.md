@@ -6,7 +6,7 @@ A thin drizzle based orm layer for the WordPress database.
 
 Because sometimes performance matters!
 
-Most of the time it is totally fine to use the wordPress REST api. But when performance matters you do not want to spin up
+Most of the time it is totally fine to use the [wp-rest](https://www.npmjs.com/package/@palasthotel/wp-rest) api. But when performance matters you do not want to spin up
 a WordPress stack just to query some data in the database. Especially if you have direct access to the database in your node setup.
 
 ### 0.x ! 
@@ -20,11 +20,13 @@ Things will eventually change on the way to 1.0.
 
 ## Getting started
 
-```
-$ npm i @public-function/wp drizzle-orm mysql2 
+Install packages.
+
+```bash
+npm i @public-function/wp drizzle-orm mysql2 
 ```
 
-### Initialize 
+Initialize the database connection.
 
 ```javascript
 import mysql from 'mysql2/promise';
@@ -57,7 +59,7 @@ const siteUrl = (
 )[0];
 ```
 
-or even easier with the wrapper function.
+or even simpler with the wrapper function.
 
 ```typescript
 import {getOption} from '@public-function/wp';
@@ -77,8 +79,6 @@ All default wordpress tables are defined:
 - wp.termMeta
 - wp.termTaxonomy
 - wp.termRelationships
-
-Use query wrapper functions for WP_Query like results.
 
 ## Hydration
 

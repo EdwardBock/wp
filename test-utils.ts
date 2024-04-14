@@ -7,6 +7,7 @@ export const getWP = () => {
         user: "exampleuser",
         database: "exampledb",
         password: "examplepass",
+        port: 3307,
     });
     return connect({
         db: {

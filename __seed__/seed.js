@@ -8,6 +8,7 @@ import fs from "node:fs";
         user: "exampleuser",
         database: "exampledb",
         password: "examplepass",
+        port: 3307,
     });
 
 

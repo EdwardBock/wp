@@ -6,7 +6,7 @@ services:
     image: wordpress
     restart: always
     ports:
-      - 8080:80
+      - 8082:80
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: exampleuser
@@ -19,7 +19,7 @@ services:
     image: mysql:8.0
     restart: always
     ports:
-      - 3306:3306
+      - 3307:3306
     environment:
       MYSQL_DATABASE: exampledb
       MYSQL_USER: exampleuser

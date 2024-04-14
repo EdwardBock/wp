@@ -19,7 +19,9 @@ export const posts = (prefix: string) => mysqlTable(
         modifiedGmt: datetime("post_modified_gmt").notNull(),
         parent: int("post_parent", {unsigned: true}).notNull(),
         guid: varchar("guid", {length: 255}).notNull(),
+        menuOrder: int("menu_order", {unsigned: true}).notNull(),
         type: varchar("post_type", {length: 20}).notNull(),
+        mimeType: varchar("post_mime_type", {length: 100}).notNull().default(""),
         commentCount: int("comment_count", {unsigned: true}).notNull(),
     }
 );

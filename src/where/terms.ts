@@ -6,7 +6,7 @@ import {isTermIdQuery, isTermSlugQuery} from "../typeguards";
 export const wherePostTerms = (
     wpdb: WordPress,
     taxonomy: string,
-    query: TermQuery
+    query: TermQuery|null = null
 ) => {
 
     const {
@@ -16,8 +16,10 @@ export const wherePostTerms = (
         terms,
     } = wpdb;
 
-    let termQueryConfig: TermIdQueryConfig | TermSlugQueryConfig
-    if (isTermSlugQuery(query)) {
+    let termQueryConfig: TermIdQueryConfig | TermSlugQueryConfig | null
+    if(query == null){
+        termQueryConfig = null;
+    } else if (isTermSlugQuery(query)) {
         termQueryConfig = {
             relation: "or",
             value: query,
@@ -32,17 +34,19 @@ export const wherePostTerms = (
     }
 
     let sql: SQL | undefined;
-    if (termQueryConfig.relation == "and") {
-        const parts = termQueryConfig.value.map(value => {
-                return (typeof value == "string") ? eq(terms.slug, value) : eq(terms.id, value)
-            }
-        );
-        sql = and(...parts);
-    } else {
-        sql = isTermIdQuery(termQueryConfig.value) ?
-            inArray(terms.id, termQueryConfig.value)
-            :
-            inArray(terms.slug, termQueryConfig.value);
+    if(termQueryConfig){
+        if (termQueryConfig.relation == "and") {
+            const parts = termQueryConfig.value.map(value => {
+                    return (typeof value == "string") ? eq(terms.slug, value) : eq(terms.id, value)
+                }
+            );
+            sql = and(...parts);
+        } else {
+            sql = isTermIdQuery(termQueryConfig.value) ?
+                inArray(terms.id, termQueryConfig.value)
+                :
+                inArray(terms.slug, termQueryConfig.value);
+        }
     }
 
     const whereQuery = wpdb.db

@@ -10,11 +10,6 @@ export type UserIdsQuery = {
     values: number[]
 }
 
-export type UserSearchQuery = {
-    value: string
-    columns: ("login" | "nicename" | "email" | "url")[]
-}
-
 export type UserHasPublishedPostsQuery = {
     postTypes: string[]
 }
@@ -22,6 +17,6 @@ export type UserHasPublishedPostsQuery = {
 export type UsersArgs = Pagination & {
     roles?: string[] | UserRolesQuery
     ids?: number[] | UserIdsQuery
-    search?: string | UserSearchQuery
+    search?: string
     hasPublishedPosts?: true | UserHasPublishedPostsQuery
 }

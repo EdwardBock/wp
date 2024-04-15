@@ -79,3 +79,15 @@ const selectUserIdsFromCapabilitiesMeta = (wp: WordPress, roles: string[]) => {
             )
         );
 }
+
+export const whereUserSearch = (
+    wp: WordPress,
+    query: string,
+) => {
+    return or(
+        like(wp.users.email, `%${query}%`),
+        like(wp.users.login, `%${query}%`),
+        like(wp.users.nicename, `%${query}%`),
+        like(wp.users.displayname, `%${query}%`),
+    )
+}

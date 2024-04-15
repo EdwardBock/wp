@@ -3,7 +3,7 @@ import type {UsersArgs} from "../types";
 import {and, type SQL} from "drizzle-orm";
 import {pagination} from "../utils";
 import {hydrateUsersWithMeta, hydrateUserWithMeta} from "../hydration";
-import {whereUserIds, whereUserInRoles} from "../where/users.ts";
+import {whereUserIds, whereUserInRoles, whereUserSearch} from "../where/users.ts";
 
 export async function queryUsers(
     wp: WordPress,
@@ -20,6 +20,11 @@ export async function queryUsers(
     if (args.ids) {
         const idsQuery = whereUserIds(wp, args.ids);
         if (idsQuery) where.push(idsQuery);
+    }
+
+    if(args.search){
+        const searchQuery = whereUserSearch(wp, args.search);
+        if(searchQuery) where.push(searchQuery);
     }
 
     const paged = pagination(args);

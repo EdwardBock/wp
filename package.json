@@ -34,8 +34,8 @@
   "author": "Edward Bock <hi@edwardbock.de> (https://www.edwardbock.de/)",
   "license": "MIT",
   "dependencies": {
-    "drizzle-orm": "^0.30.8",
-    "mysql2": "^3.9.4"
+    "drizzle-orm": "^0.30.9",
+    "mysql2": "^3.9.7"
   },
   "devDependencies": {
     "@types/jest": "29.5.12",

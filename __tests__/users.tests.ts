@@ -85,6 +85,18 @@ describe('Users table', () => {
 
     });
 
+    it("Should find only users with meta", async ()=> {
+        const result = await queryUsers(wp, {
+            meta: {
+                key: "nickname",
+                compare: "eq",
+                value: "wp",
+            }
+        });
+
+        expect(result.length).toBe(1);
+        expect(result[0]?.login).toBe("wp");
+    });
 
 
 });

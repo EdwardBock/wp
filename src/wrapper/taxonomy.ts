@@ -40,3 +40,14 @@ export async function queryTerms(
 
     return hydrateTermsWithMeta(wp, mapped);
 }
+
+export async function queryTerm(
+    wp: WordPress,
+    args: {taxonomy: string, termId: number}
+){
+    const result = await queryTerms(wp, {
+        taxonomy: args.taxonomy,
+        terms: [args.termId]
+    });
+    return result[0] ?? null;
+}

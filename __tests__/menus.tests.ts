@@ -26,5 +26,5 @@ describe('Menus', () => {
     it("Should not find a not existing menu", async ()=> {
         const notExistingMenu = await getMenu(wp, "not-existing");
         expect(notExistingMenu).toBeNull();
-    })
+    });
 });

@@ -1,5 +1,5 @@
 import {hydratePost, type PostsQueryArgs, wherePost, type WordPress} from "../index.ts";
-import {asc, desc} from "drizzle-orm";
+import {asc, desc, eq} from "drizzle-orm";
 import {hydratePosts} from "../hydration";
 import {pagination} from "../utils";
 
@@ -56,4 +56,16 @@ export async function getPostMetas(wp: WordPress, postId: number){
 
 export async function getPostMeta(wp: WordPress, postId: number, metaKey: string){
     return getPostMetas(wp, postId).then(map => map.get(metaKey) ?? null);
+}
+
+export async function queryPost(wp: WordPress, id: number){
+    const result = await wp.db
+        .select()
+        .from(wp.posts)
+        .where(eq(wp.posts, id))
+        .limit(1);
+
+    const hydrated = await hydratePosts(wp, result);
+
+    return hydrated[0] ?? null;
 }

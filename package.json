@@ -33,6 +33,9 @@
   },
   "author": "Edward Bock <hi@edwardbock.de> (https://www.edwardbock.de/)",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/public-function-org/wp"
+  },
   "dependencies": {
     "drizzle-orm": "^0.30.9",
     "mysql2": "^3.9.7"

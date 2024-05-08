@@ -118,12 +118,16 @@ export const whereUserMetaQuery = (
             .select()
             .from(wp.userMeta)
             .where(
-                eq(wp.userMeta.key, query.key)
+                and(
+                    eq(wp.users.id, wp.userMeta.userId),
+                    eq(wp.userMeta.key, query.key)
+                )
             );
         condition = compare(selectMetaKey);
     } else if (query.compare == "in" || query.compare == "not in") {
         const compare = query.compare == "in" ? inArray : notInArray;
         condition = and(
+            eq(wp.users.id, wp.userMeta.userId),
             eq(wp.userMeta.key, query.key),
             compare(wp.userMeta.value, query.values),
         )

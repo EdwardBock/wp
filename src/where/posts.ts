@@ -6,6 +6,7 @@ import {wherePostWithAuthor} from "./authors.ts";
 export function wherePost(
     wp: WordPress,
     args: {
+        include?: number[]
         postType?: PostType
         terms?: TaxonomyQuery
         postStatus?: PostStatusArgs
@@ -19,6 +20,11 @@ export function wherePost(
         postStatus = "publish",
         author,
     } = args;
+
+    // ------------------------------------
+    // post ids
+    // ------------------------------------
+    const idsWhere = (args.include && args.include.length > 0) ? wherePostIdIn(wp, args.include) : undefined;
 
     // ------------------------------------
     // post type
@@ -43,6 +49,7 @@ export function wherePost(
     let authorWhere = author ? wherePostWithAuthor(wp, author) : undefined;
 
     return and(
+        idsWhere,
         postTypeWhere,
         postStatusWhere,
         authorWhere,
@@ -62,4 +69,11 @@ export function wherePostWithStatus(
     status: PostStatus | PostStatus[]
 ) {
     return inArray(wp.posts.status, Array.isArray(status) ? status : [status]);
+}
+
+export function wherePostIdIn(
+    wp: WordPress,
+    ids: number[]
+){
+    return inArray(wp.posts.id, ids);
 }

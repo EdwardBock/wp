@@ -18,6 +18,7 @@ export type AuthorEmail = { email: string }
 export type AuthorArgs = AuthorInIds | AuthorNotInIds | AuthorName
 
 export type PostsQueryArgs = {
+    include?: number[],
     postType?: PostType
     perPage?: number
     page?: number

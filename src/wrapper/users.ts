@@ -3,7 +3,7 @@ import type {UsersArgs} from "../types";
 import {and, type SQL} from "drizzle-orm";
 import {pagination} from "../utils";
 import {hydrateUsersWithMeta, hydrateUserWithMeta} from "../hydration";
-import {whereUserIds, whereUserInRoles, whereUserMetaQuery, whereUserSearch} from "../where/users.ts";
+import {whereUserIds, whereUserInRoles, whereUserMetaQuery, whereUserSearch} from "../where";
 
 export async function queryUsers(
     wp: WordPress,
